@@ -1,0 +1,89 @@
+.navbar {
+  background: linear-gradient(45deg, #0F2167, #3559E0 99%), var(--bs-navbar-color);
+  box-shadow: 0px 3px 3px;
+}
+
+.navbar-brand {
+  font-family: Akatab, sans-serif;
+  color: var(--bs-body-bg);
+  font-weight: bold;
+}
+
+.btn {
+}
+
+.titulo {
+  font-family: Akatab, sans-serif;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.busqueda {
+  font-family: Akatab, sans-serif;
+}
+
+.busqueda-form {
+  display: flex;
+}
+
+input {
+  margin-right: 4px;
+}
+
+.tabla-productos {
+  margin-top: 24px;
+  font-family: Akatab, sans-serif;
+}
+
+.tabla-cell {
+  background-color: #3559e0!important;
+  color: var(--bs-table-border-color)!important;
+}
+
+.fila-tabla {
+  border-color: var(--bs-table-color);
+}
+
+#cell-botones {
+  width: 208px;
+}
+
+#boton-editar {
+  margin-right: 4px;
+  font-weight: bold;
+}
+
+#boton-eliminar {
+  margin-left: 4px;
+  font-weight: bold;
+}
+
+#seccion-productos {
+  background: #f2f2f2;
+}
+
+.tabla-col {
+}
+
+.formulario-producto {
+  display: flex;
+  flex-direction: column;
+  width: 636px;
+  padding: 10px;
+}
+
+#div-botones {
+  margin-top: 16px;
+}
+
+#boton-envio {
+  width: 100%;
+  font-family: Akatab, sans-serif;
+}
+
+#boton-cancelar {
+  width: 100%;
+  margin-top: 8px;
+  font-family: Akatab, sans-serif;
+}
+

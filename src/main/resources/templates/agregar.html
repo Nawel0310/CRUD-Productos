@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Control_de_Productos</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akatab&amp;display=swap">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+    <section id="seccion-productos">
+        <nav class="navbar navbar-expand-md bg-body" style="height: 10vh;">
+            <div class="container-fluid"><a class="navbar-brand" href="#">ProductFinder<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 24 24" width="1em" fill="currentColor">
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M20 19.59V8l-6-6H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c.45 0 .85-.15 1.19-.4l-4.43-4.43c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75L20 19.59zM9 13c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3z"></path>
+                    </svg></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="btn btn-info" role="button" style="font-family: Akatab, sans-serif;">Listado de Productos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container" style="width: 100%;height: 90vh;">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h1 class="titulo" style="text-align: center;">Agregar Producto</h1>
+                <form th:action="@{/guardar}" th:object="${producto}" class="formulario-producto" method="post">
+                    <div>
+                        <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">Nombre Producto:</label>
+                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="nombre" th:field="*{nombre}">
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">Marca:</label>
+                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="marca" th:field="*{marca}">
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">País de Origen:</label>
+                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="hechoEn" th:field="*{hechoEn}">
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">Precio:</label>
+                        <input class="form-control" type="number" style="font-family: Akatab, sans-serif;" name="precio" th:field="*{precio}">
+                    </div>
+                    <div id="div-botones">
+                        <button class="btn btn-success" id="boton-envio" type="submit">Enviar</button>
+                        <button class="btn btn-secondary" id="boton-cancelar" type="reset">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
