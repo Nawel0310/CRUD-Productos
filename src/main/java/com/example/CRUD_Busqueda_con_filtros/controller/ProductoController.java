@@ -5,10 +5,10 @@ import com.example.CRUD_Busqueda_con_filtros.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -16,43 +16,64 @@ import java.util.List;
 public class ProductoController {
     @Autowired
     private ProductoService productoService;
-    @RequestMapping("/")
+    @RequestMapping({"/",""})
     public String verPaginaInicio(Model modelo){
         List<Producto> listaProductos=productoService.listarProductos();
         modelo.addAttribute("listaProductos",listaProductos);
         return "index.html";
     }
-
-    @RequestMapping("/nuevo")
-    public String mostrarFormularioDeProducto(Model modelo){
-        Producto producto= new Producto();
-        modelo.addAttribute("producto",producto);
+    @GetMapping("/nuevo")
+    public String mostrarFormularioDeIngreso(Model modelo){
+        modelo.addAttribute("producto",new Producto());
         return "agregar";
     }
 
-    @RequestMapping(value="/guardar",method = RequestMethod.POST)
-    public String guardarFormularioDeProducto(@ModelAttribute("producto") Producto producto){
+    @PostMapping("/nuevo")
+    public String guardarDatosDeRegistro(@Validated Producto producto, BindingResult bindingResult, RedirectAttributes redirect, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("producto",producto);
+            return "agregar";
+        }
         productoService.guardarProducto(producto);
+        redirect.addFlashAttribute("msgExito","El producto se ha agregado correctamente.");
         return "redirect:/";
     }
 
-    @RequestMapping("/editar/{id}")
-    public String editarProducto(@PathVariable Long id, Model modelo){
-        Producto producto= productoService.obtenerProductoPorId(id);
-        modelo.addAttribute("producto",producto);
+    @PostMapping("/borrar/{id}")
+    public String borrarProducto(@PathVariable Long id, RedirectAttributes redirect) {
+        productoService.eliminarProducto(id);
+        redirect.addFlashAttribute("msgExito","El producto ha sido borrado.");
+        return "redirect:/";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editarProducto(@PathVariable Long id, Model model){
+        Producto producto = productoService.obtenerProductoPorId(id);
+        model.addAttribute("producto",producto);
         return "agregar";
     }
 
-    @RequestMapping(value = "/editar/{id}", method = RequestMethod.POST)
-    public String actualizarProducto(@PathVariable Long id, Producto producto, Model modelo){
-        Producto productoBD=productoService.obtenerProductoPorId(id);
+    @PostMapping("/editar/{id}")
+    public String actualizarProducto(@PathVariable Long id, @Validated Producto producto, BindingResult bindingResult, RedirectAttributes redirect, Model model){
+        Producto productoDB= productoService.obtenerProductoPorId(id);
 
-        productoBD.setMarca(producto.getMarca());
-        productoBD.setNombre(producto.getNombre());
-        productoBD.setPrecio(producto.getPrecio());
-        productoBD.setHechoEn(producto.getHechoEn());
+        if (bindingResult.hasErrors()){
+            model.addAttribute("producto",productoDB);
+            return "agregar";
+        }
 
-        productoService.guardarProducto(productoBD);
+        productoDB.setMarca(producto.getMarca());
+        productoDB.setNombre(producto.getNombre());
+        productoDB.setPrecio(producto.getPrecio());
+        productoDB.setHechoEn(producto.getHechoEn());
+
+        productoService.guardarProducto(productoDB);
+
+        redirect.addFlashAttribute("msgExito","El producto se ha actualizado");
         return "redirect:/";
     }
+
+
+
+
 }

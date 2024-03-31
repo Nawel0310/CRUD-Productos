@@ -11,6 +11,16 @@
 </head>
 
 <body>
+
+    <div class="container-fluid" th:if="${msgExito!=null}">
+        <div class="alert alert-success d-flex flex-row justify-content-center" role="alert" style="margin-top: 10px">
+            <span class="d-flex flex-row-reverse">
+                <button class="btn btn-sm btn-close" type="button" data-bs-dismiss="alert">
+            </button>[[${msgExito}]]</span>
+        </div>
+    </div>
+
+
     <section id="seccion-productos">
         <nav class="navbar navbar-expand-md bg-body" style="height: 10vh;">
             <div class="container-fluid"><a class="navbar-brand" href="#">ProductFinder<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 24 24" width="1em" fill="currentColor">
@@ -56,16 +66,20 @@
                                 <td th:text="${producto.precio}">UNDEFINED</td>
                                 <td id="cell-botones">
                                     <div class="d-flex justify-content-between" id="div-acciones">
-                                        <a th:href="@{/editar/{id}(id=${producto.id})}" class="btn btn-warning" id="boton-editar" type="submit">Editar<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="1em" viewBox="0 0 24 24" width="1em" fill="currentColor">
+                                        <a th:href="@{/editar/{id}(id=${producto.id})}" class="btn btn-warning" id="boton-editar" type="button">Editar<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="1em" viewBox="0 0 24 24" width="1em" fill="currentColor">
                                                 <rect fill="none" height="24" width="24"></rect>
                                                 <path d="M3,10h11v2H3V10z M3,8h11V6H3V8z M3,16h7v-2H3V16z M18.01,12.87l0.71-0.71c0.39-0.39,1.02-0.39,1.41,0l0.71,0.71 c0.39,0.39,0.39,1.02,0,1.41l-0.71,0.71L18.01,12.87z M17.3,13.58l-5.3,5.3V21h2.12l5.3-5.3L17.3,13.58z"></path>
                                             </svg>
                                         </a >
-                                        <button class="btn btn-danger" id="boton-eliminar" type="button">Eliminar<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 24 24" width="1em" fill="currentColor">
+                                        <a onclick="eliminarProducto(this)" class="btn btn-danger" id="boton-eliminar" type="button">Eliminar<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 24 24" width="1em" fill="currentColor">
                                                 <path d="M0 0h24v24H0z" fill="none"></path>
                                                 <path d="M0 0h24v24H0V0z" fill="none"></path>
                                                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"></path>
-                                            </svg></button></div>
+                                            </svg>
+                                        </a>
+                                        <form th:action="@{/borrar/{id}(id=${producto.id})}" method="post">
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -75,6 +89,15 @@
         </div>
     </section>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script> function eliminarProducto(elemento){
+            var ok = confirm('¿Seguro que desea eliminar el producto?');
+            if (ok){
+                elemento.nextElementSibling.submit()
+            }
+    }
+</script>
+
+
 </body>
 
 </html>

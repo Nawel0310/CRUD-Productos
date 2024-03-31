@@ -19,34 +19,38 @@
                     </svg></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="btn btn-info" role="button" style="font-family: Akatab, sans-serif;">Listado de Productos</a></li>
+                        <li class="nav-item"><a class="btn btn-info" role="button" style="font-family: Akatab, sans-serif;" th:href="@{/}">Listado de Productos</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <div class="container" style="width: 100%;height: 90vh;">
             <div class="d-flex flex-column justify-content-center align-items-center">
-                <h1 class="titulo" style="text-align: center;">Agregar Producto</h1>
-                <form th:action="@{/guardar}" th:object="${producto}" class="formulario-producto" method="post">
+                <h1 class="titulo" style="text-align: center;">[[${producto.id ne null ? 'Editar producto' : 'Registro de Producto'}]]</h1>
+                <form th:object="${producto}" class="formulario-producto" method="post">
                     <div>
                         <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">Nombre Producto:</label>
-                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="nombre" th:field="*{nombre}">
+                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="nombre"  th:field="*{nombre}" th:errorClass="is-invalid" placeholder="Ingrese el nombre del producto">
+                        <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="invalid-feedback"></div>
                     </div>
                     <div>
                         <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">Marca:</label>
-                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="marca" th:field="*{marca}">
+                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="marca" th:field="*{marca}" th:errorClass="is-invalid" placeholder="Ingrese la marca del producto">
+                        <div th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}" class="invalid-feedback"></div>
                     </div>
                     <div>
                         <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">País de Origen:</label>
-                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="hechoEn" th:field="*{hechoEn}">
+                        <input class="form-control" type="text" style="font-family: Akatab, sans-serif;" name="hechoEn" th:field="*{hechoEn}" th:errorClass="is-invalid" placeholder="Ingrese el país de origen del producto">
+                        <div th:if="${#fields.hasErrors('hechoEn')}" th:errors="*{hechoEn}" class="invalid-feedback"></div>
                     </div>
                     <div>
                         <label class="form-label" style="font-family: Akatab, sans-serif;font-size: 24px;font-weight: bold;">Precio:</label>
-                        <input class="form-control" type="number" style="font-family: Akatab, sans-serif;" name="precio" th:field="*{precio}">
+                        <input class="form-control" type="number" style="font-family: Akatab, sans-serif;" name="precio" th:field="*{precio}" th:errorClass="is-invalid" placeholder="Ingrese el precio del producto">
+                        <div th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" class="invalid-feedback"></div>
                     </div>
                     <div id="div-botones">
                         <button class="btn btn-success" id="boton-envio" type="submit">Enviar</button>
-                        <button class="btn btn-secondary" id="boton-cancelar" type="reset">Cancelar</button>
+                        <a th:href="@{/}" class="btn btn-secondary" id="boton-cancelar" type="reset">Cancelar</a>
                     </div>
                 </form>
             </div>
