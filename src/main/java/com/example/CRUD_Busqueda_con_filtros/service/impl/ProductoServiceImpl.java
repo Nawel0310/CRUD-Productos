@@ -13,7 +13,10 @@ public class ProductoServiceImpl implements ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
     @Override
-    public List<Producto> listarProductos() {
+    public List<Producto> listarProductos(String palabraClave) {
+        if (palabraClave != null){
+            return productoRepository.findAll(palabraClave);
+        }
         return productoRepository.findAll();
     }
 

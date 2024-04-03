@@ -3,6 +3,7 @@ package com.example.CRUD_Busqueda_con_filtros.controller;
 import com.example.CRUD_Busqueda_con_filtros.model.entities.Producto;
 import com.example.CRUD_Busqueda_con_filtros.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +18,9 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
     @RequestMapping({"/",""})
-    public String verPaginaInicio(Model modelo){
-        List<Producto> listaProductos=productoService.listarProductos();
+    public String verPaginaInicio(Model modelo, @Param("palabraClave") String palabraClave){
+        List<Producto> listaProductos=productoService.listarProductos(palabraClave);
+        modelo.addAttribute("palabraClave",palabraClave);
         modelo.addAttribute("listaProductos",listaProductos);
         return "index.html";
     }
