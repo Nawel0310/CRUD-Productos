@@ -72,8 +72,4 @@ public class ProductoController {
         redirect.addFlashAttribute("msgExito","El producto se ha actualizado");
         return "redirect:/";
     }
-
-
-
-
 }
